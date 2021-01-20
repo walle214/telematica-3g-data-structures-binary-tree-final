@@ -10,6 +10,7 @@ module.exports = class BinaryTree {
     this.preOrder(this.root[0]);
     this.postOrder(this.root[0]);
     this.inOrder(this.root[0]);
+    this.resolve(parseInPostFija(expInFija));
   }
   /**
    *
@@ -21,8 +22,8 @@ module.exports = class BinaryTree {
       if (!operators.includes(value)) this.root.push(new TreeNode(value));
       else {
         const node = new TreeNode(value);
-        node.left = this.root.pop();
         node.right = this.root.pop();
+        node.left = this.root.pop();
         this.root.push(node);
       }
     });
@@ -56,12 +57,11 @@ module.exports = class BinaryTree {
       if (r.right != null) fun(r.right);
     };
     fun(r);
-    this.resolvePreOrder(string.split('').reverse().join(''));
     this.preOrderString = string;
   }
-  resolvePreOrder(exp) {
+  resolve(exp) {
     const numberStack = new Stack();
-    exp.split('').forEach((c) => {
+    exp.forEach((c) => {
       if (!operators.includes(c)) return numberStack.push(Number(c));
       const n2 = numberStack.pop();
       const n1 = numberStack.pop();
@@ -88,7 +88,7 @@ module.exports = class BinaryTree {
       }
       numberStack.push(res);
     });
-    this.preOrderResult = numberStack.pop();
+    this.result = numberStack.pop();
   }
 
   postOrder(r) {
