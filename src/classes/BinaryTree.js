@@ -9,6 +9,7 @@ module.exports = class BinaryTree {
     this.create(parseInPostFija(expInFija));
     this.preOrder(this.root[0]);
     this.postOrder(this.root[0]);
+    this.inOrder(this.root[0]);
   }
   /**
    *
@@ -36,7 +37,17 @@ module.exports = class BinaryTree {
   //   console.log('postorder');
   //   console.log(this.postOrder(this.root[0]));
   // }
-
+  inOrder(r) {
+    let string = '';
+    const fun = (r) => {
+      if (r.left != null) fun(r.left);
+      string += r.value;
+      if (r.right != null) fun(r.right);
+    };
+    fun(r);
+    // this.resolvePreOrder(string.split('').reverse().join(''));
+    this.inOrderString = string;
+  }
   preOrder(r) {
     let string = '';
     const fun = (r) => {
@@ -45,8 +56,7 @@ module.exports = class BinaryTree {
       if (r.right != null) fun(r.right);
     };
     fun(r);
-    string = string.split('').reverse().join('');
-    this.resolvePreOrder(string);
+    this.resolvePreOrder(string.split('').reverse().join(''));
     this.preOrderString = string;
   }
   resolvePreOrder(exp) {
@@ -89,7 +99,6 @@ module.exports = class BinaryTree {
       string += r.value;
     };
     fun(r);
-    string = string.split('').reverse().join('');
     this.postOrderString = string;
   }
   print() {

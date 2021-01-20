@@ -4,6 +4,8 @@ const exprInfija = process.argv[2];
 const tree = new BinaryTree(exprInfija);
 // tree.print();
 // console.log('<-------->');
+console.log('<---- In order ---->');
+console.log(tree.inOrderString);
 console.log('<---- Post order ---->');
 console.log(tree.postOrderString);
 console.log('<---- Pre order ---->');
